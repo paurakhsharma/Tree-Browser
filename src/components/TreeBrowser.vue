@@ -9,8 +9,8 @@
                 v-if="hasChildren"
                 class="type">{{ expanded ? '&#9660;' : '&#9658;'}}
             </span>
-            <span v-else>&#9671;</span>
-            {{node.name}}
+            <span class="type" v-else>&#9671;</span>
+            <span :style="getStyle(node)">{{node.name}}</span>
         </div>
         <TreeBrowser 
           v-if="expanded"
@@ -24,6 +24,9 @@
 </template>
 
 <script>
+ const ColorHash = require('color-hash')
+const colorHash = new ColorHash()
+
 export default {
     name: 'TreeBrowser',
     props: {
@@ -44,6 +47,17 @@ export default {
             if (!this.hasChildren) {
                 this.$emit('onClick', this.node);
             }
+        },
+        getStyle(node) {
+            if(node.children) {
+                return {
+                    'color': 'red',
+                }
+            } else {
+                return {
+                    'color': colorHash.hex(node.name.split('.')[1])
+                }
+            }
         }
     },
     computed: {
@@ -58,5 +72,8 @@ export default {
     .node {
         text-align: left;
         font-size: 18px;
+    }
+    .type {
+        margin-right: 20px;
     }
 </style>
