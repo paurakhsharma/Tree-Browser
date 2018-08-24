@@ -9,32 +9,13 @@
 
 <script>
 import TreeBrowser from './components/TreeBrowser.vue'
+import root from './root.json'
 
 export default {
   name: 'app',
   data() {
     return {
-      root: {
-        name: '/',
-        children: [
-          {
-            name: 'music',
-            children: [
-              {
-                name: 'song.mp3'
-              }
-            ]
-          },
-          {
-            name: 'workspace',
-            children: [
-              {
-                name: 'source.js'
-              }
-            ]
-          }
-        ]
-      }
+      root,
     }
   },
   methods: {
