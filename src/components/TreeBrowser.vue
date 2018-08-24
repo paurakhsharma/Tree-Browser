@@ -1,7 +1,7 @@
 <template>
     <div>
         <div
-            @click="expanded = !expanded"
+            @click="nodeClicked"
             :style="{'margin-left': `${depth*20}px`}"
             class="node"
         >
@@ -18,6 +18,7 @@
           :key="child.name"
           :node="child"
           :depth="depth + 1"
+          @onClick = "(node) => $emit('onClick', node)"
         />
     </div>
 </template>
@@ -35,6 +36,14 @@ export default {
     data() {
         return {
             expanded: false,
+        }
+    },
+    methods: {
+        nodeClicked() {
+            this.expanded = !this.expanded;
+            if (!this.hasChildren) {
+                this.$emit('onClick', this.node);
+            }
         }
     },
     computed: {
