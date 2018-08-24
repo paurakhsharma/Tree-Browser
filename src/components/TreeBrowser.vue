@@ -49,14 +49,12 @@ export default {
             }
         },
         getStyle(node) {
-            if(node.children) {
-                return {
-                    'color': 'red',
-                }
-            } else {
-                return {
-                    'color': colorHash.hex(node.name.split('.')[1])
-                }
+            let color = 'red'
+            if(!node.children) {
+                color = colorHash.hex(node.name.split('.')[1])
+            }
+            return {
+                color,
             }
         }
     },
